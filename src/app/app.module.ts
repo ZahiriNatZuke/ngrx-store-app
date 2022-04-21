@@ -3,6 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { authReducer } from './state/auth/auth.reducer';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthEffects } from './state/auth/auth.effects';
 
 @NgModule({
   declarations: [
@@ -10,9 +15,13 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot({ auth: authReducer }, {}),
+    EffectsModule.forRoot([AuthEffects]),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
